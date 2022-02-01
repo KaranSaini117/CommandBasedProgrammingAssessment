@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class RunIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem intake;
+  private final IntakeSubsystem intakeSubsystem;
   private double power;
 
   /**
@@ -17,10 +17,10 @@ public class RunIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RunIntake(IntakeSubsystem intake, double power) {
-    this.intake = intake;
+  public RunIntake(IntakeSubsystem intakeSubsystem, double power) {
+    this.intakeSubsystem = intakeSubsystem;
     this.power = power;
-    addRequirements(intake);
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,13 +36,13 @@ public class RunIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setPower(power);
+    intakeSubsystem.setPower(power);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setPower(0);
+    intakeSubsystem.setPower(0);
   }
 
   // Returns true when the command should end.

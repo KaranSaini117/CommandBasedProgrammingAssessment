@@ -61,7 +61,9 @@ public class DriveBaseSubsystem extends SubsystemBase {
         setRightPower(power);
     }
 
-    public void stop(){setAll(0);}
+    public void stop(){
+        setAll(0);
+    }
 
     public void setAllMode(NeutralMode mode){
         right1.setNeutralMode(mode);
@@ -70,9 +72,13 @@ public class DriveBaseSubsystem extends SubsystemBase {
         left2.setNeutralMode(mode);
     }
 
-    public void brake(){setAllMode(NeutralMode.Brake);}
+    public void brake() {
+        setAllMode(NeutralMode.Brake);
+    }
 
-    public void coast(){setAllMode(NeutralMode.Coast);}
+    public void coast() {
+        setAllMode(NeutralMode.Coast);
+    }
 
     public double getLeftVelocity(){return left1.getSelectedSensorVelocity();}
     public double getRightVelocity(){return right1.getSelectedSensorVelocity();}

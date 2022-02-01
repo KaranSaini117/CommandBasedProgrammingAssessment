@@ -6,11 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.MoveArm;
 import frc.robot.subsystems.RunIntake;
+import frc.robot.subsystems.RunShooter;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.autos.ScorePoints;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -21,14 +26,34 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem intake = new IntakeSubsystem();;
-  private final DriveBaseSubsystem driveBase = new DriveBaseSubsystem();
+  private final IntakeSubsystem intakeSubsystem;
+  private final DriveBaseSubsystem driveBaseSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
+  private final ArmSubsystem armSubsystem;
+  private final ScorePoints scorePoints;
+
+
+  private final RunIntake runIntake;
+  private final RunShooter runShooter;
+  private final MoveArm runArm;
+
+
+
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    intakeSubsystem = new IntakeSubsystem();
+    driveBaseSubsystem = new DriveBaseSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
+    armSubsystem = new ArmSubsystem();
+    scorePoints = new ScorePoints(intakeSubsystem, shooterSubsystem, armSubsystem);
 
-    // Configure the button bindings
+    runIntake = new RunIntake(intakeSubsystem, 0);
+    runShooter = new RunShooter(shooterSubsystem);
+    runArm = new MoveArm(armSubsystem, 0, true);
+
     configureButtonBindings();
   }
 
@@ -47,11 +72,14 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return scorePoints;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
+    intakeSubsystem.setDefaultCommand(runIntake);
+    shooterSubsystem.setDefaultCommand(runShooter);
+    armSubsystem.setDefaultCommand(runArm);
     
   }
 }
