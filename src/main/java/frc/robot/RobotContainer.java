@@ -4,10 +4,17 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.DriveAndPlaceHatch;
+import frc.robot.commands.RunCargoIntake;
+import frc.robot.commands.RunHatch;
+import frc.robot.subsystems.CargoIntakeSubsystem;
+import frc.robot.subsystems.DriveBaseSubsystem;
+import frc.robot.subsystems.HatchSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,9 +25,15 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem(new TalonFX(0), new TalonFX(1));
+  private final CargoIntakeSubsystem cargoIntakeSubsystem = new CargoIntakeSubsystem(new TalonFX(2));
+  private final HatchSubsystem hatchSubsystem = new HatchSubsystem(new TalonFX(3));
+  private final XboxController xboxController = new XboxController(0);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(driveBaseSubsystem, xboxController);
+  private final RunCargoIntake runCargoIntake = new RunCargoIntake(cargoIntakeSubsystem, xboxController);
+  private final RunHatch runHatch = new RunHatch(hatchSubsystem, xboxController);
+  private final DriveAndPlaceHatch driveAndPlaceHatch = new DriveAndPlaceHatch(driveBaseSubsystem, hatchSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -43,11 +56,13 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return driveAndPlaceHatch;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
+    cargoIntakeSubsystem.setDefaultCommand(runCargoIntake);
+    hatchSubsystem.setDefaultCommand(runHatch);
   }
 }
