@@ -5,19 +5,20 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class RunIntakeWithJoystick extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem intakeSubsystem;
-  private final Joystick joystick;
+  private final XboxController joystick;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RunIntakeWithJoystick(IntakeSubsystem intakeSubsystem, Joystick joystick) {
+  public RunIntakeWithJoystick(IntakeSubsystem intakeSubsystem, XboxController joystick) {
     this.intakeSubsystem = intakeSubsystem;
     this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,7 +32,7 @@ public class RunIntakeWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.setPower(joystick.getY());
+    intakeSubsystem.setPower(joystick.getLeftY());
   }
 
   // Called once the command ends or is interrupted.

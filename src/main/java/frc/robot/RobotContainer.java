@@ -12,6 +12,7 @@ import frc.robot.subsystems.RunIntakeWithJoystick;
 import frc.robot.subsystems.HatchSubsystem;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ArcadeDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -25,13 +26,13 @@ public class RobotContainer {
   private DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private IntakeSubsystem intakeSubsystem;
   private HatchSubsystem hatchSubsystem;
-  private Joystick joystick;
+  private XboxController joystick;
   private RunIntakeWithJoystick runIntake;
   private RunIntakeWithJoystick runHatch;
-
+  private PowerForTime powerForTime;
+  private ArcadeDrive arcadeDrive;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -53,11 +54,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return powerForTime;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
+    driveBaseSubsystem.setDefaultCommand(arcadeDrive);
     intakeSubsystem.setDefaultCommand(runIntake);
     hatchSubsystem.setDefaultCommand(runHatch);
   }

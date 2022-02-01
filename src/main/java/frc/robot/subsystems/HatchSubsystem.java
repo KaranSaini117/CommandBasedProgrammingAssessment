@@ -6,14 +6,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class HatchSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private TalonFX talonFX;
-  public ShooterSubsystem(TalonFX talonFX) {
+  public HatchSubsystem(TalonFX talonFX) {
     this.talonFX = talonFX;
     talonFX.setInverted(false);
   }
