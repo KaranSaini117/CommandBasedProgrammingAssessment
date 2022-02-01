@@ -1,0 +1,18 @@
+Package frc.robot.subsystems.shoot;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+public class ShooterSubsystem extends SubsystemBase {
+  private TalonFX talonFX;
+  public ShooterSubsystem(TalonFX talonFX) {
+    this.talonFX = talonFX;
+    talonFX.setInverted(false);
+  }
+
+  // actually I'm comfused on shooter stuff...
+
+
+
+
+
+
+

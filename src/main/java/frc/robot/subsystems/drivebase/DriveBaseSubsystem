@@ -1,0 +1,63 @@
+
+public class DriveBaseSubsystem extends SubsystemBase {
+  private TalonFX t1;
+  private TalonFX t2;
+  private TalonFX t3;
+  private TalonFX t4;
+
+  public DriveBaseSubsystem(TalonFX t1, TalonFX t2, TalonFX t3, TalonFX t4) {
+    this.t1 = t1;
+    this.t1 = t2;
+    this.t1 = t3;
+    this.t1 = t4;
+  }
+
+  public TalonFX getLeftMast() {
+    return this.t1;
+  }
+  public TalonFX getRightMast() {
+    return this.t2;
+  }
+  public TalonFX getLeftFollow() {
+    return this.t3;
+  }
+  public TalonFX getRightFollow() {
+    return this.t4;
+  }
+
+  public void setPower(double power){
+    t1.set(ControlMode.PercentOutput, power);
+    t2.set(ControlMode.PercentOutput, power);
+    t3.set(ControlMode.PercentOutput, power);
+    t4.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setLeftPower(double power){
+    t1.set(ControlMode.PercentOutput, power);
+    t3.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setRightPower(double power){
+    t2.set(ControlMode.PercentOutput, power);
+    t4.set(ControlMode.PercentOutput, power);
+  }
+
+  public void brake(){
+    this.t1.setNeutralMode(NeutralMode.Brake);
+    this.t2.setNeutralMode(NeutralMode.Brake);
+    this.t3.setNeutralMode(NeutralMode.Brake);
+    this.t4.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void coast(){
+    this.t1.setNeutralMode(NeutralMode.Coast);
+    this.t2.setNeutralMode(NeutralMode.Coast);
+    this.t3.setNeutralMode(NeutralMode.Coast);
+    this.t4.setNeutralMode(NeutralMode.Coast);
+  }
+
+  @Override
+  public void periodic() {
+  }
+
+}

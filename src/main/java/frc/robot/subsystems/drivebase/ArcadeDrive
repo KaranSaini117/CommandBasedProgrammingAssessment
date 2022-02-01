@@ -1,0 +1,44 @@
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveBaseSubsystem;
+
+
+public class ArcadeDrive extends CommandBase {
+  
+  
+  private DriveBaseSubsystem drivebasesubsystem;
+  private PaddedXbox paddedXbox;
+  private double straight;
+  private double turn;
+
+  public ArcadeDrive(DriveBaseSubsystem d, PaddedXbox p, double s, double t) {
+    this.drivebasesubsystem = d;
+    this.paddedXbox = p;
+    this.straight = s;
+    this.turn = t;
+    addRequirements(drivebasesubsystem);
+  }
+
+  @Override
+  public void initialize() {
+  }
+
+  @Override
+  public void execute() {
+    double a = paddedXbox.getLeftY() * straight;
+    double b = paddedXbox.getRightX() * turn;
+    drivebasesubsystem.setLeftPower(a + b);
+    drivebasesubsystem.setRightPower(a-b);
+
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    this.drivebasesubsystem.setPower(0);
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+  
+}

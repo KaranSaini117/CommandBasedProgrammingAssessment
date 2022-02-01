@@ -1,0 +1,45 @@
+package frc.robot.subsystems.drive;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
+
+public class StraightPowerTime extends CommandBase {
+  private DriveBaseSubsystem drivebasesubsystem;
+  private double power;
+  private double time;
+
+  public StraightPowerTime(DriveBaseSubsystem d, double p, double t) {
+    this.drivebasesubsystem = d;
+    this.power = p;
+    this.time = t;
+    addRequirements(drivebasesubsystem);
+  }
+
+  @Override
+  public void initialize() {
+  }
+
+  @Override
+  public void execute() {
+    drivebasesubsystem.setLeftPower(power);
+    drivebasesubsystem.setRightPower(power);
+  }
+
+
+  @Override
+  public void end(boolean interrupted) {
+    drivebasesubsystem.setLeftPower(0);
+    drivebasesubsystem.setRightPower(0);
+    drivebasesubsystem.brake();
+  }
+
+  @Override
+  public boolean isFinished() {
+    if (System.currentTimeMillis() <= this.time) {
+        return true;
+      }
+      return false;
+  
+  }
+
+}
