@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
+  private DriveBaseSubsystem driveBaseSubsystem;
+  
   public DriveStraight() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
