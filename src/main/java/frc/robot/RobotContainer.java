@@ -33,10 +33,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings(Factory factory) {
     this.factory = factory;
     intakesub = factory.getIntakeSub();
     joystick = factory.getPaddedXbox();
+    configureButtonBindings();
   }
 
   /**
@@ -44,13 +45,10 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+  
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    intakesub.setDefaultCommand(factory,getRunIntakeWithJoystick(joystick));
   }
 }

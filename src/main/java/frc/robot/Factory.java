@@ -4,11 +4,10 @@
 
 package frc.robot;
 
-import com.team7419.PaddedXbox;
-
 import frc.robot.subsystems.ArcadeDrive;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PaddedXbox;
 import frc.robot.subsystems.RunIntake;
 import frc.robot.subsystems.RunIntakeWithJoystick;
 import frc.robot.subsystems.TankDrive;
