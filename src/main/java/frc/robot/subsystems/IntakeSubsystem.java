@@ -6,25 +6,26 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private VictorSPX victorSPX;
-  public IntakeSubsystem(VictorSPX victorSPX) {
-    this.victorSPX = victorSPX;
-    victorSPX.setInverted(false);
+  private TalonFX talonFX;
+  public IntakeSubsystem(TalonFX talonFX) {
+    this.talonFX = talonFX;
+    talonFX.setInverted(false);
   }
   public void setPower(double power) {
-      victorSPX.set(ControlMode.PercentOutput, power);
+      talonFX.set(ControlMode.PercentOutput, power);
   }
-  public VictorSPX getVictor() {
-      return victorSPX;
+  public TalonFX getTalonFX() {
+      return talonFX;
   }
   public boolean getInverted() {
-    return victorSPX.getInverted();
+    return talonFX.getInverted();
   }
   @Override
   public void simulationPeriodic() {
