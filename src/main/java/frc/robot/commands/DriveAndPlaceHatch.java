@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
 
@@ -17,6 +18,11 @@ public class DriveAndPlaceHatch extends SequentialCommandGroup {
   public DriveAndPlaceHatch(DriveBaseSubsystem driveBaseSubsystem, HatchSubsystem hatchSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new StraightPowerTime(driveBaseSubsystem, 0.75, 2.0), new InstantCommand(() -> {hatchSubsystem.releaseHatch();}), new StraightPowerTime(driveBaseSubsystem, -0.75, 1));
+
+    //drive forward, release the hatch, and drive back
+    addCommands(new StraightPowerTime(driveBaseSubsystem, 0.75, 2000),
+    new InstantCommand(() -> {hatchSubsystem.releaseHatch();}, hatchSubsystem),
+    new WaitCommand(2.5),
+    new StraightPowerTime(driveBaseSubsystem, -0.75, 1000));
   }
 }
