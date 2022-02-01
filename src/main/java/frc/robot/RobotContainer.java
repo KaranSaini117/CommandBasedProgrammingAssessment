@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -12,6 +14,7 @@ import frc.robot.subsystems.RunIntakeWithJoystick;
 import frc.robot.subsystems.HatchSubsystem;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.RunHatch;
 import frc.robot.subsystems.ArcadeDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -27,12 +30,18 @@ public class RobotContainer {
   private IntakeSubsystem intakeSubsystem;
   private HatchSubsystem hatchSubsystem;
   private XboxController joystick;
-  private RunIntakeWithJoystick runIntake;
-  private RunIntakeWithJoystick runHatch;
+  private RunIntakeWithJoystick runIntakeWithJoystick;
+  private RunHatch runHatch;
   private PowerForTime powerForTime;
   private ArcadeDrive arcadeDrive;
+  private TalonFX talonFX;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer(TalonFX talonFX) {
+    intakeSubsystem = new IntakeSubsystem(talonFX);
+    hatchSubsystem = new HatchSubsystem(talonFX);
+    runIntakeWithJoystick = new RunIntakeWithJoystick(intakeSubsystem, joystick);
+    runHatch = new RunHatch(hatchSubsystem, joystick);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -60,7 +69,7 @@ public class RobotContainer {
   // schedule default commands here
   public void setDefaultCommands(){
     driveBaseSubsystem.setDefaultCommand(arcadeDrive);
-    intakeSubsystem.setDefaultCommand(runIntake);
+    intakeSubsystem.setDefaultCommand(runIntakeWithJoystick);
     hatchSubsystem.setDefaultCommand(runHatch);
   }
 }

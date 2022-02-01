@@ -4,21 +4,22 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class RunHatch extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final HatchSubsystem hatchSubsystem;
-  private double power;
+  private XboxController joystick;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RunHatch(HatchSubsystem hatchSubsystem, double power) {
+  public RunHatch(HatchSubsystem hatchSubsystem, XboxController joystick) {
     this.hatchSubsystem = hatchSubsystem;
-    this.power = power;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(hatchSubsystem);
   }
@@ -30,16 +31,13 @@ public class RunHatch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hatchSubsystem.setPower(power);
+    hatchSubsystem.setPower(joystick.getLeftY());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     hatchSubsystem.setPower(0);
-  }
-  public double getPower() {
-    return power;
   }
   // Returns true when the command should end.
   @Override
