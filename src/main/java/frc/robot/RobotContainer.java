@@ -38,8 +38,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer(TalonFX talonFX) {
-    intakeSubsystem = new IntakeSubsystem(talonFX);
-    hatchSubsystem = new HatchSubsystem(talonFX);
+    this.talonFX = talonFX;
+    intakeSubsystem = new IntakeSubsystem(this.talonFX);
+    hatchSubsystem = new HatchSubsystem(this.talonFX);
     runIntakeWithJoystick = new RunIntakeWithJoystick(intakeSubsystem, joystick);
     runHatch = new RunHatch(hatchSubsystem, joystick);
     // Configure the button bindings
