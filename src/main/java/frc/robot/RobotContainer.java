@@ -6,9 +6,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.drivebase.DriveTrainSubsystem;
+import frc.robot.subsystems.drivebase.StraightPowerTime;
+import frc.robot.subsystems.drivebase.TankDrive;
+import frc.robot.subsystems.hatch.HatchSubsystem;
+import frc.robot.subsystems.hatch.RunHatch;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.intake.RunIntake;
+import frc.robot.subsystems.intake.RunIntakeUp;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -16,11 +22,16 @@ import edu.wpi.first.wpilibj2.command.Command;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+ // not sure about other parts of RobotContainer
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private XboxController xBox;
+  private final DriveTrainSubsystem driveTrainSub = new DriveTrainSubsystem();
+  private final HatchSubsystem hatchSub = new HatchSubsystem(0.5, 1);
+  private final IntakeSubsystem intakeSub = new IntakeSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final TankDrive drive = new TankDrive(driveTrainSub, xBox);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -43,7 +54,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // not sure about auton part
+    return drive;
   }
 
   // schedule default commands here

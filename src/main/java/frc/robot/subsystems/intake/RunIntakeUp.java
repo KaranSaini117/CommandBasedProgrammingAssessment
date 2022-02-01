@@ -1,25 +1,26 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot.subsystems.intake;
 
-package frc.robot.subsystems;
-
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
+public class RunIntakeUp extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  private IntakeSubsystem intake;
+  private double upPower;
+  private XboxController xBox;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a RunIntakeUp.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public RunIntakeUp(IntakeSubsystem intake, double upPower, XboxController xBox) {
+    this.intake = intake;
+    this.upPower = upPower;
+    this.xBox = xBox;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -28,11 +29,17 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+      if (xBox.getXButtonPressed()){
+          intake.setUpPower(upPower);
+      }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+      intake.setUpPower(0.0);
+  }
 
   // Returns true when the command should end.
   @Override
