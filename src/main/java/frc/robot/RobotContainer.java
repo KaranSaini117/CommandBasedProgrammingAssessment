@@ -30,7 +30,7 @@ public class RobotContainer {
   private final DriveBaseSubsystem driveBaseSubsystem;
   private final ShooterSubsystem shooterSubsystem;
   private final ArmSubsystem armSubsystem;
-  private final ScorePoints scorePoints;
+  private final ScorePoints scorePointsAuto;
 
 
   private final RunIntake runIntake;
@@ -48,7 +48,7 @@ public class RobotContainer {
     driveBaseSubsystem = new DriveBaseSubsystem();
     shooterSubsystem = new ShooterSubsystem();
     armSubsystem = new ArmSubsystem();
-    scorePoints = new ScorePoints(intakeSubsystem, shooterSubsystem, armSubsystem);
+    scorePointsAuto = new ScorePoints(intakeSubsystem, shooterSubsystem, armSubsystem);
 
     runIntake = new RunIntake(intakeSubsystem, 0);
     runShooter = new RunShooter(shooterSubsystem);
@@ -72,7 +72,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return scorePoints;
+    return scorePointsAuto;
   }
 
   // schedule default commands here
