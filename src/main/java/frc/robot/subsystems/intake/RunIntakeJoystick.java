@@ -2,20 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.shoot;
+package frc.robot.subsystems.intake;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShooterSubsystem extends CommandBase {
-  /** Creates a new ShooterSubsystem. */
-  private TalonFX talon;
-  public ShooterSubsystem() {
-    talon = new TalonFX(13);
-    talon.configFactoryDefault();
-    talon.setInverted(true);
+public class RunIntakeJoystick extends CommandBase {
+  /** Creates a new RunIntakeJoystick. */
+  private IntakeSubsystem intakeSubsystem;
+  private XboxController joystick;
+  public RunIntakeJoystick(IntakeSubsystem intakeSubsystem, XboxController joystick) {
+    this.intakeSubsystem = intakeSubsystem;
+    this.joystick = joystick;
+    addRequirements(intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,11 +24,15 @@ public class ShooterSubsystem extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intakeSubsystem.setPower(joystick.getLeftY());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intakeSubsystem.setPower(0);
+  }
 
   // Returns true when the command should end.
   @Override
