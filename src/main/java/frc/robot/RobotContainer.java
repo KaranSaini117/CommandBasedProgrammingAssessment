@@ -9,7 +9,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.subsystems.intake.IntakeSub;
+import frc.robot.subsystems.intake.RunIntakeWithR2;
+import frc.robot.subsystems.drive.StraightPowerTime;
+import frc.robot.subsystems.drive.TankDrive;
+import frc.robot.subsystems.drive.ArcadeDrive;
+import frc.robot.subsystems.drive.DriveBaseSub;
+import frc.robot.com.team7419.PaddedXbox;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -17,11 +23,17 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final IntakeSub intake = new IntakeSub();
+  private final PaddedXbox xbox = new PaddedXbox();
+  private final DriveBaseSub drive = new DriveBaseSub(null, null, null, null);
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final RunIntakeWithR2 m_runIntakeWithJoystick  = new RunIntakeWithR2
+  (intake, xbox) ;
+  private final ArcadeDrive m_arcadeDrive = new ArcadeDrive(drive, xbox, 
+  PowerConstants.DriveBaseStraight.val, PowerConstants.DriveBaseTurn.val);
+  private final TankDrive m_tankDrive = new TankDrive(drive, xbox);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -34,7 +46,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -48,6 +61,8 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    intake.setDefaultCommand(m_runIntakeWithJoystick);
+    drive.setDefaultCommand(m_tankDrive);
+    drive.setDefaultCommand(m_arcadeDrive);
   }
 }
