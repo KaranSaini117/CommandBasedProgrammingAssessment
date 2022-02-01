@@ -5,16 +5,18 @@
 package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private VictorSPX victor;
-  public IntakeSubsystem(VictorSPX victor) {
-    victor = new VictorSPX(14);
+  private TalonFX talon;
+  public IntakeSubsystem(TalonFX talon) {
+    talon = new TalonFX(14);
   }
 
   @Override
@@ -27,12 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public VictorSPX getVictor() {
-    return victor;
-  }
-
   public void setPower(double power) {
-    victor.set(ControlMode.PercentOutput, power);
+    talon.set(ControlMode.PercentOutput, power);
   }
 
 }

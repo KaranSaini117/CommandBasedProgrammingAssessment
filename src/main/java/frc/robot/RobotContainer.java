@@ -8,6 +8,11 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.auton.Backwards;
+import frc.robot.subsystems.auton.ForwardShootBack;
+import frc.robot.subsystems.auton.MoveForward;
+import frc.robot.subsystems.auton.ShootBall;
+import frc.robot.subsystems.auton.ShooterSubsystem;
 import frc.robot.subsystems.drive.ArcadeDrive;
 import frc.robot.subsystems.drive.DrivebaseSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -25,6 +30,11 @@ public class RobotContainer {
   private final DrivebaseSubsystem drivebaseSubsystem = new DrivebaseSubsystem(null, null, null, null);
   private final XboxController joystick = new XboxController(0);
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drivebaseSubsystem, joystick, 0.5, 0.5);
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private final ShootBall shootBall = new ShootBall(shooterSubsystem, 0.5);
+  private final MoveForward moveForward = new MoveForward(drivebaseSubsystem, 0.5, 2);
+  private final Backwards backwards = new Backwards(drivebaseSubsystem, -0.5, 2);
+  private final ForwardShootBack forwardShootBack = new ForwardShootBack(drivebaseSubsystem, shooterSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,7 +57,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return forwardShootBack;
   }
 
   // schedule default commands here
