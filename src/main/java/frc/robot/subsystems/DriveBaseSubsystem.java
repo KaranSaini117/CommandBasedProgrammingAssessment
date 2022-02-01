@@ -27,17 +27,17 @@ public class DriveBaseSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void runLeft(){
+  public void runLeft(double power){
     left1.set(ControlMode.PercentOutput, power);
     left2.set(ControlMode.PercentOutput, power);
   }
-  public void runRight(){
+  public void runRight(double power){
     right1.set(ControlMode.PercentOutput, power);
     right2.set(ControlMode.PercentOutput, power);
   }
-  public void runBoth(){
-    runLeft();
-    runRight();
+  public void runBoth(double power){
+    runLeft(power);
+    runRight(power);
   }
   @Override
   public void simulationPeriodic() {

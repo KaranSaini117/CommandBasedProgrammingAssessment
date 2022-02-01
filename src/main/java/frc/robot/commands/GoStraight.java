@@ -4,26 +4,25 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveBaseSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 
 /** An example command that uses an example subsystem. */
-public class ArcadeDrive extends CommandBase {
+public class GoStraight extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveBaseSubsystem m_subsystem;
-  private final XboxController joystick;
-  private double kT = 0.5;
-  private double kS = 0.5;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ArcadeDrive(DriveBaseSubsystem subsystem, XboxController joystick) {
+  public GoStraight(DriveBaseSubsystem subsystem) {
     m_subsystem = subsystem;
-    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -35,11 +34,7 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double leftPower = kT * joystick.getLeftX() - kS*joystick.getRightY();
-      double rightPower = -kT *joystick.getLeftX() - kS*joystick.getRightY();
-
-    m_subsystem.runLeft(leftPower);
-    m_subsystem.runRight(rightPower);
+    m_subsystem.runBoth(0.7);
   }
 
   // Called once the command ends or is interrupted.

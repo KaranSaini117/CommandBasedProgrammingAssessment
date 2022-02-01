@@ -66,6 +66,6 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    DriveBaseSubsystem.setDefaultCommand(new ArcadeDrive(DriveBaseSubsystem, joystick));
   }
 }
