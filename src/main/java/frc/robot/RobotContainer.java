@@ -7,7 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
+import frc.robot.subsystems.drivebase.ArcadeDrive;
+import frc.robot.subsystems.drivebase.straightPowerTime;
+import frc.robot.subsystems.intake.RunIntake;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.intake.RunIntakeWithJoystick;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -16,11 +21,14 @@ import edu.wpi.first.wpilibj2.command.Command;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer<drivebaseSubsystem> {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final IntakeSubsystem intakesubsystem = new IntakeSubsystem();
+  private final RunIntake runintake = new RunIntake(intakesubsystem, 0);
+  private final RunIntakeWithJoystick runintakewithjoystick = new RunIntakeWithJoystick();
+  private final DriveBaseSubsystem drivebasesubsystem = new DriveBaseSubsystem();
+  private final ArcadeDrive arcadedrive = new ArcadeDrive();
+  private final straightPowerTime straightPowerTime = new straightPowerTime();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,6 +56,8 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    IntakeSubsystem.setDefaultCommand(runintake);
+    DirveBaseSubsystem.setDefaultCommand(arcadedrive);
+
   }
 }
