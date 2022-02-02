@@ -65,6 +65,16 @@ public class DriveBaseSubsystem extends SubsystemBase {
     backRight.set(ControlMode.PercentOutput, power);
   }
 
+  public void setLeftSidePower(double power){
+    frontLeft.set(ControlMode.PercentOutput, power);
+    backLeft.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setRightSidePower(double power){
+    frontRight.set(ControlMode.PercentOutput, power);
+    backRight.set(ControlMode.PercentOutput, power);
+  }
+
   public void brake(){
     frontRight.setNeutralMode(NeutralMode.Brake);
     frontLeft.setNeutralMode(NeutralMode.Brake);
