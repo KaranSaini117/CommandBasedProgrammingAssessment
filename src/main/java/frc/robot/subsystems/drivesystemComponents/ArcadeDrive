@@ -1,0 +1,46 @@
+package frc.robot.subsystems.drivebaseComponent;
+
+import frc.robot.subsystems.SubsystemBase;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class ArcadeDrive extends CommandBase {
+  
+  private DriveBaseSubsystem drivebasesubsystem;
+  private PaddedXbox paddedXbox;
+  private double straight;
+  private double turn;
+  
+  public ArcadeDrive(DrivebaseSubsystem drivebaseSubsystem, XboxController joystick, double straight, double turn) {
+    this.drivebaseSubsystem = drivebaseSubsystem;
+    this.joystick = joystick;
+    this.straight = straight;
+    this.turn = turn;
+    addRequirements(drivebaseSubsystem);
+  }
+  /**
+   * Creates a new ArcadeDrive.
+   */
+
+  @Override
+  public void initialize() {}
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    double y = joystick.getLeftY() * straight; 
+    double x = joystick.getRightX() * turn; 
+    drivebaseSubsystem.setPower(y+x);
+    drivebaseSubsystem.setPower(y-x);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {}
+
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+}

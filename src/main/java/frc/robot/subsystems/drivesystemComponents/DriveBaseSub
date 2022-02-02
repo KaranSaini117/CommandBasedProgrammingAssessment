@@ -1,0 +1,65 @@
+package frc.robot.subsystems.drivebase;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
+
+public class DriveBaseSub extends SubsystemBase {
+
+    private TalonFX part1;
+
+    private TalonFX part2;
+
+    private TalonFX part3;
+
+    private TalonFX part4;
+
+  /**
+   * Creates a new DriveBaseSub.
+   */
+  public DriveBaseSub(TalonFX part1, TalonFX part2, TalonFX part3, TalonFX part4) {
+    part1 = new TalonFX(1);
+    part2 = new TalonFX(2);
+    part3 = new TalonFX(3);
+    part4 = new TalonFX(4);
+  }
+
+
+
+  public void setPower(double power){
+    part1.set(ControlMode.PercentOutput, power);
+    part2.set(ControlMode.PercentOutput, power);
+    part3.set(ControlMode.PercentOutput, power);
+    PART4.set(ControlMode.PercentOutput, power);
+  }
+
+
+  public void brake(){
+    part1.setNeutralMode(NeutralMode.Brake);
+    part2.setNeutralMode(NeutralMode.Brake);
+    part3.setNeutralMode(NeutralMode.Brake);
+    part4.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void coast(){
+    part1.setNeutralMode(NeutralMode.Coast);
+    part2.setNeutralMode(NeutralMode.Coast);
+    part3.setNeutralMode(NeutralMode.Coast);
+    part4.setNeutralMode(NeutralMode.Coast);
+  }
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+ 
+}

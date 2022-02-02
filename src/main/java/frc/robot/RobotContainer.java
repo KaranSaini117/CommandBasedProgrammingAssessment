@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.drivebaseComponent.DriveBaseSub;
+import frc.robot.subsystems.drivebaseComponent.ArcadeDrive;
+import frc.robot.subsystems.intakeComponent.IntakeSub;
+import frc.robot.subsystems.intakeComponent.RunIntake;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,8 +24,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final IntakeSub intakeSub = new IntakeSub();
+  private final RunIntake runintake = new RunIntake(IntakeSub, 0.5);
+  private final DriveBaseSub drivebasesub = new DriveBaseSub();
+  private final ArcadeDrive arcadedrive = new ArcadeDrive();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,6 +56,8 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+
+    IntakeSub.setDefaultCommand(RunIntake);
+    DriveBaseSub.setDefaultCommand(ArcadeDrive);
   }
 }
