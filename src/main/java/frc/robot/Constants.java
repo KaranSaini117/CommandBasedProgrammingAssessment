@@ -12,4 +12,16 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public static enum CanIds {
+        leftMotor1(3),
+        rightMotor1(4),
+        leftMotor2(5),
+        rightMotor2(6),
+        ;
+public final int id;
+    private CanIds(int id) {
+        this.id = id;
+    }
+}
+}
