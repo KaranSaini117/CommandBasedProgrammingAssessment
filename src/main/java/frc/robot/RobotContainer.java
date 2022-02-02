@@ -6,8 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.HookerSubsystem;
+import frc.robot.subsystems.driveBase.DriveBaseSubsystem;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.HookerHook;
+import frc.robot.subsystems.RunIntake;
+import frc.robot.subsystems.shooter.RunShooter;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.autonomous.BigBoyAuton;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,13 +26,34 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final IntakeSubsystem intakeSubsystem;
+  private final DriveBaseSubsystem driveBaseSubsystem;
+  private final ShooterSubsystem shooterSubsystem;
+  private final HookerSubsystem hookerSubsystem;
+  private final BigBoyAuton bigBoyAuton;
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  private final RunIntake runIntake;
+  private final RunShooter runShooter;
+  private final HookerHook hookerHook;
+
+
+
+
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
+    intakeSubsystem = new IntakeSubsystem();
+    driveBaseSubsystem = new DriveBaseSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
+    hookerSubsystem = new HookerSubsystem();
+    bigBoyAuton = new BigBoyAuton(intakeSubsystem, shooterSubsystem, hookerSubsystem);
+
+    runIntake = new RunIntake(intakeSubsystem, 0);
+    runShooter = new RunShooter(shooterSubsystem);
+    hookerHook = new HookerHook(hookerSubsystem, 0, true);
+
     configureButtonBindings();
   }
 
@@ -43,11 +72,14 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return bigBoyAuton;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
+    intakeSubsystem.setDefaultCommand(runIntake);
+    shooterSubsystem.setDefaultCommand(runShooter);
+    hookerSubsystem.setDefaultCommand(hookerHook);
     
   }
 }
