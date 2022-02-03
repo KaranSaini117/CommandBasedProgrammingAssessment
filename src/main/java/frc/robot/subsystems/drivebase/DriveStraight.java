@@ -9,13 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
   private DriveBaseSubsystem driveBaseSubsystem;
-  private double time;
   private double power;
   
-  public DriveStraight(DriveBaseSubsystem driveBaseSubsystem, double time, double power) {
+  public DriveStraight(DriveBaseSubsystem driveBaseSubsystem, double power) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveBaseSubsystem = driveBaseSubsystem;
-    this.time = time;
     this.power = power;
     addRequirements(driveBaseSubsystem);
   }
