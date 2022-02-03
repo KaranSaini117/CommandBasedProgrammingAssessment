@@ -10,6 +10,8 @@ import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
 import frc.robot.subsystems.drivebase.DriveWithJoystick;
+import frc.robot.subsystems.hatch.HatchSubsystem;
+import frc.robot.subsystems.hatch.UseHatch;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -26,6 +28,8 @@ public class RobotContainer {
   private final XboxController joystick = new XboxController(0);
   private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
   private final DriveWithJoystick driveWithJoystick = new DriveWithJoystick(driveBaseSubsystem, joystick);
+  private final HatchSubsystem hatchSubsystem = new HatchSubsystem();
+  private final UseHatch useHatch = new UseHatch(hatchSubsystem, joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -53,6 +57,7 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    driveBaseSubsystem.setDefaultCommand(driveWithJoystick);
+    hatchSubsystem.setDefaultCommand(useHatch);
   }
 }
