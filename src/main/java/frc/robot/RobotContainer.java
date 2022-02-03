@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.autonomous.RunRobot;
 import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
+import frc.robot.subsystems.drivebase.DriveStraight;
 import frc.robot.subsystems.drivebase.DriveWithJoystick;
 import frc.robot.subsystems.hatch.HatchSubsystem;
 import frc.robot.subsystems.hatch.UseHatch;
@@ -34,6 +36,7 @@ public class RobotContainer {
   private final UseHatch useHatch = new UseHatch(hatchSubsystem, joystick);
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final IntakeWithJoystick intakeWithJoystick = new IntakeWithJoystick(intakeSubsystem, joystick);
+  private final RunRobot runRobot = new RunRobot();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,7 +59,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return runRobot;
   }
 
   // schedule default commands here
