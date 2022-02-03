@@ -12,6 +12,8 @@ import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
 import frc.robot.subsystems.drivebase.DriveWithJoystick;
 import frc.robot.subsystems.hatch.HatchSubsystem;
 import frc.robot.subsystems.hatch.UseHatch;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.intake.IntakeWithJoystick;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -30,6 +32,8 @@ public class RobotContainer {
   private final DriveWithJoystick driveWithJoystick = new DriveWithJoystick(driveBaseSubsystem, joystick);
   private final HatchSubsystem hatchSubsystem = new HatchSubsystem();
   private final UseHatch useHatch = new UseHatch(hatchSubsystem, joystick);
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final IntakeWithJoystick intakeWithJoystick = new IntakeWithJoystick(intakeSubsystem, joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,5 +63,6 @@ public class RobotContainer {
   public void setDefaultCommands(){
     driveBaseSubsystem.setDefaultCommand(driveWithJoystick);
     hatchSubsystem.setDefaultCommand(useHatch);
+    intakeSubsystem.setDefaultCommand(intakeWithJoystick);
   }
 }
