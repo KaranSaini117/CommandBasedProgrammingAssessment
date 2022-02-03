@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.auto.MoveHatchUpAndDown;
+import frc.robot.subsystems.drive.DriveBaseSubsystem;
+import frc.robot.subsystems.drive.TankDrive;
+import frc.robot.subsystems.hatch.HatchSubsystem;
+import frc.robot.subsystems.hatch.RunHatch;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -19,8 +24,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
+  private final HatchSubsystem hatchSubsystem = new HatchSubsystem();
+  private final XboxController joystick = new XboxController(0);
 
+  private final TankDrive tankDrive = new TankDrive(driveBaseSubsystem, joystick);
+  private final RunHatch runHatch = new RunHatch(hatchSubsystem, joystick);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  private final MoveHatchUpAndDown moveHatchUpAndDown = new MoveHatchUpAndDown();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -43,11 +55,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return moveHatchUpAndDown;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    driveBaseSubsystem.setDefaultCommand(tankDrive);
+    hatchSubsystem.setDefaultCommand(runHatch);
   }
 }
