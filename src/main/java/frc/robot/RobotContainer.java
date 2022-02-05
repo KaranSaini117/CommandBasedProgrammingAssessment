@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.drivebase.DriveBaseSubsystem;
+import frc.robot.subsystems.drivebase.TankDrive;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,9 +21,20 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  private final DriveBaseSubsystem  = new DriveBaseSubsystem();
+
+  private final TankDrive = new TankDrive(driveBaseSubsystem, xboxController);
+
+  private final RunIntake = new RunIntake(intakeSubsystem, xboxController);
+
+  private final HatchSubsystem = new HatchSubsystem();
+
+  private final RunHatch = new RunHatch(hatchSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,6 +62,6 @@ public class RobotContainer {
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    driveBaseSubsystem.setdefault(tankDrive);
   }
 }

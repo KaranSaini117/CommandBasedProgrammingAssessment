@@ -18,6 +18,8 @@ public final class Constants {
         rightMotor1(4),
         leftMotor2(5),
         rightMotor2(6),
+        intakeMotor(7),
+        hatchMotor(8);
         ;
 public final int id;
     private CanIds(int id) {
