@@ -6,9 +6,19 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.PowerConstants;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.Auto;
+import frc.robot.commands.Grab;
+import frc.robot.commands.Release;
+import frc.robot.commands.RunIntake;
+import frc.robot.subsystems.DriveBaseSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.IntakeConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,14 +28,19 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveBaseSubsystem driveBaseSubsystem = new DriveBaseSubsystem();
+  private final IntakeConveyorSubsystem intakeConveyorSubsystem = new IntakeConveyorSubsystem();
+  private final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final XboxController driverController = new XboxController(OIConstants.xboxPort);
+
+  private final Auto autoCommandGroup = new Auto(driveBaseSubsystem, intakeConveyorSubsystem, grabberSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    setDefaultCommands();
   }
 
   /**
@@ -34,7 +49,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(driverController, Button.kA.value)
+      .whenHeld(new RunIntake(intakeConveyorSubsystem, PowerConstants.intakePower));
+      new JoystickButton(driverController, Button.kX.value)
+      .whenHeld(new Grab(grabberSubsystem));
+      new JoystickButton(driverController, Button.kY.value)
+      .whenHeld(new Release(grabberSubsystem));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -42,12 +64,11 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return autoCommandGroup;
   }
 
   // schedule default commands here
   public void setDefaultCommands(){
-    
+    driveBaseSubsystem.setDefaultCommand(new ArcadeDrive(driveBaseSubsystem, driverController, PowerConstants.driveBaseStraight, PowerConstants.driveBaseTurn));
   }
 }
