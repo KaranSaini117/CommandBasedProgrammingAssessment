@@ -16,4 +16,9 @@ public class Release extends CommandBase {
     public void initialize() {
         grabberSubsystem.release();
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

@@ -16,4 +16,9 @@ public class Grab extends CommandBase {
     public void initialize() {
         grabberSubsystem.grab();
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

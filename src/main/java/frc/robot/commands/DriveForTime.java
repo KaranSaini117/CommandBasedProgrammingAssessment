@@ -10,12 +10,19 @@ public class DriveForTime extends CommandBase {
     private final double power;
     private final double time;
 
+    private double startTime;
+
     public DriveForTime(DriveBaseSubsystem driveBaseSubsystem, double power, double time) {
         this.driveBaseSubsystem = driveBaseSubsystem;
 
         this.power = power;
         this.time = time;
         addRequirements(driveBaseSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -39,7 +46,7 @@ public class DriveForTime extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return System.currentTimeMillis() >= time;
+        return System.currentTimeMillis() - startTime >= time;
     }
 
 }
