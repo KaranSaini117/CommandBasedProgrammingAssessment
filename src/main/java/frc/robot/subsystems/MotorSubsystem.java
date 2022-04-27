@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class MotorSubsystem extends SubsystemBase {
+public class MotorSubsystem extends SubsystemBase { //for new electrical board training
   /** Creates a new MotorSubsystem. */
   private TalonSRX talon;
   public MotorSubsystem() {
