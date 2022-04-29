@@ -4,14 +4,17 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class RunMotor extends CommandBase {
   /** Creates a new RunMotor. */
   private MotorSubsystem motorSubsystem;
-  public RunMotor(MotorSubsystem motorSubsystem) {
+  private XboxController joystick;
+  public RunMotor(MotorSubsystem motorSubsystem, XboxController joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motorSubsystem = motorSubsystem;
+    this.joystick = joystick;
     addRequirements(motorSubsystem);
 
   }
@@ -24,7 +27,7 @@ public class RunMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    motorSubsystem.setPower(0.2);
+    motorSubsystem.setPower(joystick.getLeftY()*0.4);
   }
 
   // Called once the command ends or is interrupted.

@@ -26,16 +26,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem intakeSubsystem;
-  private final DriveBaseSubsystem driveBaseSubsystem;
-  private final ShooterSubsystem shooterSubsystem;
-  private final ArmSubsystem armSubsystem;
-  private final ScorePoints scorePointsAuto;
   private final MotorSubsystem motorSubsystem;
-  private final RunIntake runIntake;
-  private final RunShooter runShooter;
-  private final MoveArm runArm;
   private final RunMotor runMotor;
+  private final XboxController joystick1;
 
 
 
@@ -43,18 +36,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    intakeSubsystem = new IntakeSubsystem();
-    driveBaseSubsystem = new DriveBaseSubsystem();
-    shooterSubsystem = new ShooterSubsystem();
-    armSubsystem = new ArmSubsystem();
+    joystick1 = new XboxController(0);
     motorSubsystem = new MotorSubsystem();
-    scorePointsAuto = new ScorePoints(intakeSubsystem, shooterSubsystem, armSubsystem);
-
-    runIntake = new RunIntake(intakeSubsystem, 0);
-    runShooter = new RunShooter(shooterSubsystem);
-    runArm = new MoveArm(armSubsystem, 0, true);
-    runMotor = new RunMotor(motorSubsystem);
-
+    runMotor = new RunMotor(motorSubsystem, joystick1);
     configureButtonBindings();
   }
 
@@ -71,14 +55,14 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  //public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return scorePointsAuto;
-  }
+   // return scorePointsAuto;
+  //}
 
   // schedule default commands here
   public void setDefaultCommands(){
-    intakeSubsystem.setDefaultCommand(runIntake);
+    //intakeSubsystem.setDefaultCommand(runIntake);
     //shooterSubsystem.setDefaultCommand(runShooter);
     //armSubsystem.setDefaultCommand(runArm);
     motorSubsystem.setDefaultCommand(runMotor);
